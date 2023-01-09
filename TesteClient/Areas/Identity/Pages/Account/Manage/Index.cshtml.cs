@@ -66,6 +66,7 @@ namespace TesteClient.Areas.Identity.Pages.Account.Manage
             //[Display(Name = "Civilité")]
             //public eCivility Civility { get; set; }
 
+            public string Id { get; set; }
             [Display(Name = "Nom")]
             [MaxLength(30)]
             public string LastName { get; set; }
@@ -102,7 +103,8 @@ namespace TesteClient.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber,
                 LastName = user.LastName,
                 FirstName =user.FirstName,
-                BirthDate=user.BirthDate
+                BirthDate=user.BirthDate,
+                Id=user.Id
  
             };
         }

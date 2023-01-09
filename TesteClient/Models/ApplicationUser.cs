@@ -29,5 +29,9 @@ namespace TesteClient.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Inconnue")]
         public DateTime? BirthDate { get; set; }
+
+        public virtual List<ApplicationUserAdresse> ApplicationUserAdresses { get; set; }
+        
+        public ApplicationUser() { }
     }
 }

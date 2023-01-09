@@ -2,13 +2,14 @@
 @model RegisterModel
 
 @{
-    ViewData["Title"] = "CREATION D'UN NOUVEAU COMPTE";
+    ViewData["Title"] = "         CREATION D'UN NOUVEAU COMPTE";
 }
 
 <h5>@ViewData["Title"]</h5>
 
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" class="font-weight-light" method="post" >
            
             <hr />
