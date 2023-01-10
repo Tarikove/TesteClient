@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,7 +27,7 @@ namespace TesteClient.Controllers
         }
 
         // GET: Adresse/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Adresses == null)
             {
@@ -44,8 +45,9 @@ namespace TesteClient.Controllers
         }
 
         // GET: Adresse/Create
-        public IActionResult Create()
+        public IActionResult Create(string? Id)
         {
+            ViewBag.IdCurrentApplicationUser = Id;
             return View();
         }
 
@@ -54,12 +56,29 @@ namespace TesteClient.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Num,Road,Complement,ZipCode,City")] Adresse adresse)
+        public async Task<IActionResult> Create(string? id, [Bind("Num,Road,Complement,ZipCode,City")] Adresse adresse)
         {
+            string? IdClient = id;
+            
             if (ModelState.IsValid)
             {
                 _context.Add(adresse);
                 await _context.SaveChangesAsync();
+                if (IdClient != null)
+                {
+                    //int IdAddress = _context.Address
+                    //    .OrderByDescending(p => p.Id)
+                    //    .FirstOrDefault()
+                    //    .Id;
+
+                    ApplicationUserAdresse CurrentUserAddress = new ApplicationUserAdresse(IdClient, adresse.Id);
+                    _context.ApplicationUserAdresse.Add(CurrentUserAddress);
+                    await _context.SaveChangesAsync();
+
+                    var routeValues = new RouteValueDictionary { { "id", IdClient } };
+                    return RedirectToAction("Details", "ApplicationUser", routeValues);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(adresse);
@@ -86,7 +105,7 @@ namespace TesteClient.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Num,Road,Complement,ZipCode,City")] Adresse adresse)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Num,Road,Complement,ZipCode,City")] Adresse adresse)
         {
             if (id != adresse.Id)
             {
@@ -117,7 +136,7 @@ namespace TesteClient.Controllers
         }
 
         // GET: Adresse/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null || _context.Adresses == null)
             {
@@ -137,7 +156,7 @@ namespace TesteClient.Controllers
         // POST: Adresse/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Adresses == null)
             {
@@ -153,7 +172,7 @@ namespace TesteClient.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AdresseExists(string id)
+        private bool AdresseExists(int id)
         {
           return _context.Adresses.Any(e => e.Id == id);
         }

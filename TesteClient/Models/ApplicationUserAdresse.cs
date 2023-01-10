@@ -8,23 +8,29 @@ namespace TesteClient.Models
     public class ApplicationUserAdresse
     {
         public int Id { get; set; }
+        
         [DisplayName("Client")]
         public string IdApplicationUser { get; set; }
+        
         [DisplayName("Adresse")]
-        public string IdAdresse { get; set; }
+        public int IdAdresse { get; set; }
 
         [ForeignKey("IdApplicationUser")]
         [DisplayName("Client")]
         public virtual ApplicationUser? ApplicationUser { get; set; }
+        
+        
         [ForeignKey("IdAdresse")]
         [DisplayName("Adresse")]
         public virtual Adresse? Adresse { get; set; }
 
-        public ApplicationUserAdresse()
+        ApplicationUserAdresse()
         { }
+        
+     
         public ApplicationUserAdresse(
             string IdApplicationUser,
-            string IdAdresse)
+            int IdAdresse)
         {
             this.IdApplicationUser = IdApplicationUser;
             this.IdAdresse = IdAdresse;

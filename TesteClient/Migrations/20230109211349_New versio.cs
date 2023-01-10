@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TesteClient.Migrations
 {
-    public partial class Ajourdumodeleadr : Migration
+    public partial class Newversio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,8 @@ namespace TesteClient.Migrations
                 name: "Adresses",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Num = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     Road = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Complement = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
@@ -90,24 +91,26 @@ namespace TesteClient.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdresseApplicationUser",
+                name: "ApplicationUserAdresse",
                 columns: table => new
                 {
-                    AdressesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ApplicationUsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdApplicationUser = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdAdresse = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdresseApplicationUser", x => new { x.AdressesId, x.ApplicationUsersId });
+                    table.PrimaryKey("PK_ApplicationUserAdresse", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AdresseApplicationUser_Adresses_AdressesId",
-                        column: x => x.AdressesId,
+                        name: "FK_ApplicationUserAdresse_Adresses_IdAdresse",
+                        column: x => x.IdAdresse,
                         principalTable: "Adresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AdresseApplicationUser_AspNetUsers_ApplicationUsersId",
-                        column: x => x.ApplicationUsersId,
+                        name: "FK_ApplicationUserAdresse_AspNetUsers_IdApplicationUser",
+                        column: x => x.IdApplicationUser,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -199,9 +202,14 @@ namespace TesteClient.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AdresseApplicationUser_ApplicationUsersId",
-                table: "AdresseApplicationUser",
-                column: "ApplicationUsersId");
+                name: "IX_ApplicationUserAdresse_IdAdresse",
+                table: "ApplicationUserAdresse",
+                column: "IdAdresse");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserAdresse_IdApplicationUser",
+                table: "ApplicationUserAdresse",
+                column: "IdApplicationUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -246,7 +254,7 @@ namespace TesteClient.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AdresseApplicationUser");
+                name: "ApplicationUserAdresse");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

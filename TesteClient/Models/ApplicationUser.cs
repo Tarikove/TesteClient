@@ -30,8 +30,15 @@ namespace TesteClient.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "Inconnue")]
         public DateTime? BirthDate { get; set; }
 
+        // read only (get) properties
+        [Display(Name = "Nom")]
+        public string FullName => $"{FirstName} {LastName}";
         public virtual List<ApplicationUserAdresse> ApplicationUserAdresses { get; set; }
         
-        public ApplicationUser() { }
+
+        //public override string ToString()
+        //{
+        //    return $"{FirstName} {LastName}";
+        //}
     }
 }

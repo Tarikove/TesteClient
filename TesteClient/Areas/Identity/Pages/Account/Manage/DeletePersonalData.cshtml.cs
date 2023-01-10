@@ -49,6 +49,7 @@ namespace TesteClient.Areas.Identity.Pages.Account.Manage
             [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
+            
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace TesteClient.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
+            
             RequirePassword = await _userManager.HasPasswordAsync(user);
             if (RequirePassword)
             {
@@ -89,6 +90,7 @@ namespace TesteClient.Areas.Identity.Pages.Account.Manage
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
+            
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Unexpected error occurred deleting user.");

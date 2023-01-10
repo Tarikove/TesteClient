@@ -12,8 +12,8 @@ using TesteClient.Data;
 namespace TesteClient.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230108200152_new")]
-    partial class @new
+    [Migration("20230109211349_New versio")]
+    partial class Newversio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,8 +163,11 @@ namespace TesteClient.Migrations
 
             modelBuilder.Entity("TesteClient.Models.Adresse", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -284,9 +287,8 @@ namespace TesteClient.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("IdAdresse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("IdAdresse")
+                        .HasColumnType("int");
 
                     b.Property<string>("IdApplicationUser")
                         .IsRequired()

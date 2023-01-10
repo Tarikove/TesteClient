@@ -17,6 +17,6 @@ namespace TesteClient.Data
         }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Adresse> Adresses { get; set; }
-        public DbSet<TesteClient.Models.ApplicationUserAdresse> ApplicationUserAdresse { get; set; }
+        public DbSet<ApplicationUserAdresse> ApplicationUserAdresse { get; set; }
     }
 }

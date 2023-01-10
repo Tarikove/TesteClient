@@ -22,7 +22,9 @@ namespace TesteClient.Controllers
         // GET: ApplicationUserAdresse
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.ApplicationUserAdresse.Include(a => a.Adresse).Include(a => a.ApplicationUser);
+            var applicationDbContext = _context.ApplicationUserAdresse
+                .Include(a => a.Adresse)
+                .Include(a => a.ApplicationUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,8 +51,8 @@ namespace TesteClient.Controllers
         // GET: ApplicationUserAdresse/Create
         public IActionResult Create()
         {
-            ViewData["IdAdresse"] = new SelectList(_context.Adresses, "Id", "Id");
-            ViewData["IdApplicationUser"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            ViewData["IdAdresse"] = new SelectList(_context.Adresses, "Id", "Name");
+            ViewData["IdApplicationUser"] = new SelectList(_context.ApplicationUser, "Id", "FullName");
             return View();
         }
 
@@ -67,8 +69,8 @@ namespace TesteClient.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdAdresse"] = new SelectList(_context.Adresses, "Id", "Id", applicationUserAdresse.IdAdresse);
-            ViewData["IdApplicationUser"] = new SelectList(_context.ApplicationUser, "Id", "Id", applicationUserAdresse.IdApplicationUser);
+            ViewData["IdAdresse"] = new SelectList(_context.Adresses, "Id", "Name", applicationUserAdresse.IdAdresse);
+            ViewData["IdApplicationUser"] = new SelectList(_context.ApplicationUser, "Id", "Fullname", applicationUserAdresse.IdApplicationUser);
             return View(applicationUserAdresse);
         }
 

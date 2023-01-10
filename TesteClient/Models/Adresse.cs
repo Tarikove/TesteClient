@@ -7,7 +7,7 @@ namespace TesteClient.Models
     {
         
             // read/write (get/set) properties
-            public string Id { get; set; }
+            public int Id { get; set; }
 
             [Display(Name = "Numéro")]
             [MaxLength(15)]
@@ -33,10 +33,10 @@ namespace TesteClient.Models
 
             // calculated properties
             [Display(Name = "Adresse complète")]
-            public string? FullAddress => $"{Road} - {Complement} {ZipCode} {City}";
+            public string? FullAddress => $"{Num} {Road} - {Complement} {ZipCode} {City}";
 
             public virtual ICollection<ApplicationUserAdresse>? ApplicationUserAdresses { get; set; }
         
-
+        public Adresse() { }
     }
 }

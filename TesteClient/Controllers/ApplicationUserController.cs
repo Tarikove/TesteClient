@@ -44,7 +44,7 @@ using TesteClient.Models;
                 return NotFound();
             }
 
-            var applicationUser = await _context.Users
+            var applicationUser = await _context.ApplicationUser
                 .Include(t => t.ApplicationUserAdresses)
                 .ThenInclude(t => t.Adresse)
 
