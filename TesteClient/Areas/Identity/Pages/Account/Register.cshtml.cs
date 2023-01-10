@@ -73,9 +73,11 @@ namespace TesteClient.Areas.Identity.Pages.Account
         {
 
 
-           
-            
-            
+            [Required]
+            [Display(Name = "Pseudo")]
+            public string UserName { get; set; }
+
+
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -134,8 +136,18 @@ namespace TesteClient.Areas.Identity.Pages.Account
             public DateTime? BirthDate { get; set; }
 
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Téléphone")]
             public string PhoneNumber { get; set; }
+
+            [Phone]
+            [Display(Name = "Téléphone")]
+            [Compare("PhoneNumber", ErrorMessage = "Les deux numéros de téléphone ne sont pas identiques.")]
+
+            public string PhoneConfirm { get; set; }
+
+
+
+
 
         }
 
@@ -154,6 +166,7 @@ namespace TesteClient.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                user.EmailConfirmed= true;
                 user.Civility = (ApplicationUser.eCivility)Input.Civility;
                 user.LastName = Input.LastName;
                 user.FirstName = Input.FirstName;
