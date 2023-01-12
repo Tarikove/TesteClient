@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aspose.Cells;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ public class AppDbInitializer
 
                     new Category()
                     {
-                        
+
                         CategoryName = "Reflex",
                         Description = "Appareils Type 2",
 
@@ -30,7 +31,7 @@ public class AppDbInitializer
 
                     new Category()
                     {
-                        
+
                         CategoryName = "Reflex",
                         Description = "Appareils Type 2",
 
@@ -41,8 +42,8 @@ public class AppDbInitializer
 
 
                 if (!context.Products.Any())
-            {
-                context.Products.AddRange(new List<Product>()
+                {
+                    context.Products.AddRange(new List<Product>()
                 {
 
                     new Product()
@@ -62,29 +63,105 @@ public class AppDbInitializer
                         UnitPrice = 890,
                         CategoryID = 1,
 
-                    },
-
-                    new Product()
-                    {
-                        ProductName = "Canon 600",
-                        Description = "Appareil photo Reflex",
-                        ImagePath = "EMG\\Canon600.JPG",
-                        UnitPrice = 400,
-                        CategoryID = 1,
-
                     }
                 });
-                context.SaveChanges();
-            }
-                        }
+                    context.SaveChanges();
+                }
+
+                int ICivility=1;
+                
+                if (!context.ApplicationUser.Any())
+                    
+                {
+                    context.ApplicationUser.AddRange(new List<ApplicationUser>()
+                            {
+
+                        new ApplicationUser()
+                                {
+                                    UserName = "Admin",
+                                    PasswordHash = "Admin@2022",
+                                    Email = "Admin@gmail.com",
+                                    EmailConfirmed = true,
+                                    PhoneNumber = "0666631345",
+                                    PhoneNumberConfirmed = true,
+                                    Civility = (ApplicationUser.eCivility)ICivility,
+                                    LastName = "Tarik",
+                                    FirstName = "Aliouchouche",
+                                    BirthDate = new DateTime(05/08/1971),
+                                },
+
+                        new ApplicationUser()
+                                {
+                                    UserName = "Admin",
+                                    PasswordHash = "Admin1@2022",
+                                    Email = "Admin1@gmail.com",
+                                    EmailConfirmed = true,
+                                    PhoneNumber = "0666631333",
+                                    PhoneNumberConfirmed = true,
+                                    Civility = (ApplicationUser.eCivility)ICivility,
+                                    LastName = "Jeans Pierre",
+                                    FirstName = "Moula",
+                                    BirthDate = new DateTime(10/10/1977),
+                                }
+                                });
+                    context.SaveChanges();
+                }
+
+
+
+
+                ////-------- Application User
+
+                //Workbook wb = new Workbook("D:\\Ecommerce.xlsx");
+                //WorksheetCollection collection = wb.Worksheets;
+                ////Application User
+
+
+
+
+                //for (int worksheetIndex = 0; worksheetIndex < collection.Count; worksheetIndex++)
+                //{
+
+                //    Worksheet worksheet = collection[worksheetIndex];
+
+
+                //    int rows = worksheet.Cells.MaxDataRow;
+                //    int cols = worksheet.Cells.MaxDataColumn;
+                //    //string Ville;
+
+
+                //    worksheetIndex = 0;
+
+                //    for (int i = 0; i < rows; i++)
+                //    {
+                //        if (!context.ApplicationUser.Any())
+                //        {
+                //            context.ApplicationUser.AddRange(new List<ApplicationUser>()
+                //            {
+                //                new ApplicationUser()
+                //                {
+                //                    UserName = Convert.ToString(worksheet.Cells[i, 0].Value),
+                //                    PasswordHash = Convert.ToString(worksheet.Cells[i, 1].Value),
+                //                    Email = Convert.ToString(worksheet.Cells[i, 3].Value),
+                //                    EmailConfirmed = true,
+                //                    PhoneNumber = Convert.ToString(worksheet.Cells[i, 2].Value),
+                //                    PhoneNumberConfirmed = true,
+                //                    Civility = (ApplicationUser.eCivility)worksheet.Cells[i, 4].Value,
+                //                    LastName = Convert.ToString(worksheet.Cells[i, 5].Value),
+                //                    FirstName = Convert.ToString(worksheet.Cells[i, 6].Value),
+                //                    BirthDate = Convert.ToDateTime(worksheet.Cells[i, 7].Value),
+                //                }
+                //                 });
+                //            context.SaveChanges();
+
+                //        }
+
+                //    }
+
+                }
+
+            
+        }
     }
 }
-}
-
-
-
-
-
-
-
 

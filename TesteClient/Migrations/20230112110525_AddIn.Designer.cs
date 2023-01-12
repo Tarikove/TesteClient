@@ -12,8 +12,8 @@ using TesteClient.Data;
 namespace TesteClient.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230112083341_AddInit")]
-    partial class AddInit
+    [Migration("20230112110525_AddIn")]
+    partial class AddIn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
