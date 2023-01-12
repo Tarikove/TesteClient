@@ -16,7 +16,7 @@ html {
 
 html {
     font-size: 14px;
-    /*background-color: darkslategrey;*/
+   /* background-color: darkslategrey;*/
     position: relative;
     min-height: 100%;
 }
@@ -48,6 +48,7 @@ html {
 
 body {
     margin-bottom: 60px;
+    
 }
 
 .carousel-item {

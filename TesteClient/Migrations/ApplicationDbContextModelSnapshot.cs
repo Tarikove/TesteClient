@@ -301,6 +301,63 @@ namespace TesteClient.Migrations
                     b.ToTable("ApplicationUserAdresse");
                 });
 
+            modelBuilder.Entity("TesteClient.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("TesteClient.Models.Product", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"), 1L, 1);
+
+                    b.Property<int?>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(10000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<double?>("UnitPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("ProductID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -371,6 +428,15 @@ namespace TesteClient.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
+            modelBuilder.Entity("TesteClient.Models.Product", b =>
+                {
+                    b.HasOne("TesteClient.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryID");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("TesteClient.Models.Adresse", b =>
                 {
                     b.Navigation("ApplicationUserAdresses");
@@ -379,6 +445,11 @@ namespace TesteClient.Migrations
             modelBuilder.Entity("TesteClient.Models.ApplicationUser", b =>
                 {
                     b.Navigation("ApplicationUserAdresses");
+                });
+
+            modelBuilder.Entity("TesteClient.Models.Category", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

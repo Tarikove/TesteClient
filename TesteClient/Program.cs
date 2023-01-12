@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 using TesteClient.Data;
 using TesteClient.Models;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,4 +46,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+
+AppDbInitializer.Seed(app);
+
 app.Run();
+
